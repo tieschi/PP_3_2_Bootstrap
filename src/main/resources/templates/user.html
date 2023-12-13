@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>user</title>
+    <style>
+        table {
+            border-style: dotted;
+            border-width: 3px;
+            border-color: blueviolet;
+            background-color: aquamarine;
+        }
+        th {
+            border: 2px solid red;
+        }
+        td {
+            border: 1px groove navajowhite;
+        }
+    </style>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<div>
+    <th:block th:include="logOut">Menu</th:block>
+</div>
+<h1>User</h1>
+<div>
+    <table th:object="${user}">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Password</th>
+            <th>Role</th>
+        </tr>
+        <tr>
 
-
+            <td th:utext="${user.getUsername()}"></td>
+            <td th:utext="${user.getSurname()}"></td>
+            <td th:utext="${user.getAge()}"></td>
+            <td th:utext="${user.getPassword()}"></td>
+            <td>
+                <div th:each="role: ${user.getRoles()}">
+                    <span th:if="(${role.getName()} == 'ROLE_ADMIN')" th:utext="Администратор"></span>
+                    <span th:if="(${role.getName()} == 'ROLE_USER')" th:utext="Пользователь"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
